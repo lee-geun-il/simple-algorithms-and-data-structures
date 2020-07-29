@@ -21,6 +21,19 @@ pub fn insertion_sort<T: Ord>(arr: &mut [T]) {
     }
 }
 
+// SELECTION SORT
+pub fn selection_sort<T: Ord>(arr: &mut [T]) {
+    for index_i in 0..arr.len() {
+        let mut index_smallest = index_i;
+        for index_j in (index_i + 1)..arr.len() {
+            if arr[index_j] < arr[index_smallest] {
+                index_smallest = index_j;
+            }
+        }
+        arr.swap(index_i, index_smallest);
+    }
+}
+
 // QUICK SORT
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
     _quick_sort(arr, 0, (arr.len() - 1) as isize);
