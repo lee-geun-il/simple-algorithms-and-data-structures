@@ -65,7 +65,7 @@ fn _partition<T: Ord>(arr: &mut [T], index_lowest: isize, index_highest: isize) 
             break;
         }
     }
-    index_high
+    return index_high;
 }
 
 // STOOGE SORT
@@ -79,5 +79,41 @@ pub fn stooge_sort<T: Ord>(arr: &mut [T]) {
         stooge_sort(&mut arr[..length - t]);
         stooge_sort(&mut arr[t..]);
         stooge_sort(&mut arr[..length - t]);
+    }
+}
+
+// MERGE SORT
+pub fn merge_sort<T: Copy + Ord>(x: &mut [T]) {
+    let length = x.len();
+    if length < 2 {
+        return;
+    }
+    merge_sort(&mut x[0..length/2]);
+    merge_sort(&mut x[length/2..length]);
+    let mut y: Vec<T> = x.to_vec();
+    _merge(&x[0..length/2], &x[length/2..length], &mut y[..]);
+    x.copy_from_slice(&y);
+}
+fn _merge<T: Copy + Ord> (x1: &[T], x2: &[T], y: &mut [T]) {
+    assert_eq!(x1.len() + x2.len(), y.len());
+    let mut index_i = 0;
+    let mut index_j = 0;
+    let mut index_k = 0;
+    while index_i < x1.len() && index_j < x2.len() {
+        if x1[index_i] < x2[index_j] {
+            y[index_k] = x1[index_i];
+            index_k += 1;
+            index_i += 1;
+        } else {
+            y[index_k] = x2[index_j];
+            index_k += 1;
+            index_j += 1;
+        }
+    }
+    if index_i < x1.len() {
+        y[index_k..].copy_from_slice(&x1[index_i..]);
+    }
+    if index_j < x2.len() {
+        y[index_k..].copy_from_slice(&x2[index_j..]);
     }
 }
