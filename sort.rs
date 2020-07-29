@@ -1,15 +1,27 @@
-// Bubble Sort
+#![allow(dead_code)]
+// BUBBLE SORT
 pub fn bubble_sort<T: Ord>(arr: &mut [T]) {
-    for i in 0..arr.len() {
-        for j in 0..arr.len() - 1 - i {
-            if arr[j] > arr[j + 1] {
-                arr.swap(j, j + 1);
+    for index_i in 0..arr.len() {
+        for index_j in 0..arr.len() - 1 - index_i {
+            if arr[index_j] > arr[index_j + 1] {
+                arr.swap(index_j, index_j + 1);
             }
         }
     }
 }
 
-// Quick Sort
+// INSERTION SORT
+pub fn insertion_sort<T: Ord>(arr: &mut [T]) {
+    for index_i in 1..arr.len() {
+        let mut index_j = index_i;
+        while index_j > 0 && arr[index_j - 1] > arr[index_j] {
+            arr.swap(index_j, index_j - 1);
+            index_j = index_j - 1;
+        }
+    }
+}
+
+// QUICK SORT
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
     _quick_sort(arr, 0, (arr.len() - 1) as isize);
 }
