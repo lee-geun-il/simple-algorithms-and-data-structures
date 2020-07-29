@@ -67,3 +67,17 @@ fn _partition<T: Ord>(arr: &mut [T], index_lowest: isize, index_highest: isize) 
     }
     index_high
 }
+
+// STOOGE SORT
+pub fn stooge_sort<T: Ord>(arr: &mut [T]) {
+    let length = arr.len();
+    if arr.first() > arr.last() {
+        arr.swap(0, length - 1);
+    }
+    if length > 2 {
+        let t = arr.len() / 3;
+        stooge_sort(&mut arr[..length - t]);
+        stooge_sort(&mut arr[t..]);
+        stooge_sort(&mut arr[..length - t]);
+    }
+}
